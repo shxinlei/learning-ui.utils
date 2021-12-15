@@ -33,6 +33,7 @@ const download = ({ url, method='GET', name, progress, onClose, options }: downl
             progress && progress(event.loaded, event.total, event);
         }
     };
+    
     onClose && onClose(xhr);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {

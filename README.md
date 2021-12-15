@@ -22,7 +22,6 @@ npm i @learning-ui/utils --save
 9. debounce 防抖
 10. throttle 节流
 11. unique 数组去重
-12. getPosition 获取相对与上一个相对定位元素的位置
 12. formDeepClone 深度拷贝数据
 13. formatTime 将时间戳转换为 年月日时分秒 
 
@@ -76,7 +75,7 @@ const App = () => {
 >
 > ​	current: 当前分割文件的进度
 >
-> ​    total: 当前分割文件的总数
+> ​     total: 当前分割文件的总数
 >
 > ​     filesLength: 需要分割文件的个数
 >
@@ -175,7 +174,7 @@ download({
   method='GET', 
   name, // 名称
   progress,  // 下载进度
-  onClose  // 中断 // (xhr) => {}
+  onClose  // 通过 xhr.abort() 关闭下载 // (xhr) => {}
 })
 ```
 
@@ -186,7 +185,6 @@ import {formatTime} from "@learning-ui/utils"
 formatTime(1635754317815, ["/", ":"]); // "2021/11/01 16:11:57"
 
 ```
-
 
 
 #### 事件总线
@@ -249,31 +247,3 @@ throttle({
     immediate: 是否立即执行
 })
 ```
-
-
-
-#### DOM 相关
-
-------
-
-```javascript
-import { getPosition } from "@learning-ui/utils";
-
-const App = () => {
-
-  const divRef = React.useRef(null);
-
- 
-    useEffect(() => {
-        console.log(getPosition(divRef)) // 100 300
-    }, [])
-  
-
-  return (
-    <div style={{position: "relative", marginTop: 100 , marginLeft: 300}}>
-      <div ref={divRef} style={{ marginTop: 100 , marginLeft: 300}}></div>
-    </div>
-  );
-};
-```
-

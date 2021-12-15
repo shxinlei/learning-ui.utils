@@ -24,7 +24,7 @@ export interface sparkProps {
     chunkSize?: number
 }
 
-const sparkMd5File = ({file, onprogress}: sparkProps) =>{
+export const sparkMd5File = ({file, onprogress}: sparkProps) =>{
     let _file = file;
     return new Promise((res, rej) => {
         // 拿到file 实例
@@ -80,5 +80,58 @@ const sparkMd5File = ({file, onprogress}: sparkProps) =>{
         loadNext();
     });
 }
+ 
+interface uploadFileProps {
+    files: File[],
+    onprogress?: (current: number, total: number,filesLength: number , currentLength: number ,  obj: any) => void;
+    chunkSize?: number;
+    [key: string]: any
+}
 
-export default sparkMd5File;
+
+/**
+ * 上传文件
+ * @params {{ files: File[] ,onprogress: func , chunkSize?: number } }
+ * @returns Promise<string[]>
+ */
+export const uploadFileMd5: ({ files, onprogress, ...rest }: uploadFileProps) => Promise<string[]> = ({ files, onprogress, ...rest }) => new Promise((resolve) => {
+        md5FileUpload({
+            ...rest,
+            files,
+            onprogress, 
+            resolve,
+        })
+});
+
+
+const md5FileUpload = ({files, onprogress , resolve, ...rest}: any) => {
+    let obj = rest.obj || {};
+    let index = rest.ex || 0;
+    let md5Arr = rest.md5Arr || {};
+    sparkMd5File({
+        file: files[index],
+        onprogress: (current: number, total: number) => {
+            obj[files[index].name] = [current, total];
+            onprogress && onprogress(current, total, files.length, Object.keys(obj).length , obj)
+        },
+        chunkSize: rest.chunkSize
+    }).then(md5 => {
+
+        md5Arr[files[index].name] = md5;
+        index = index + 1;
+
+        if (Object.keys(md5Arr).length !== files.length) {
+            md5FileUpload({
+                ...rest,
+                ex: index,
+                obj: obj,
+                md5Arr: md5Arr,
+                files: files,
+                onprogress: onprogress,
+                resolve
+            })
+        }else {
+            resolve(md5Arr)
+        }
+    })
+}
