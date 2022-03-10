@@ -3,9 +3,9 @@
 
 /**
  * 检查节点 n 是否在节点 root 的子集中
- * @param root 
- * @param n 
- * @returns 
+ * @param root
+ * @param target
+ * @returns
  */
 
 const contains = (root: Node | null | undefined, target?: Node) =>  {
@@ -14,6 +14,9 @@ const contains = (root: Node | null | undefined, target?: Node) =>  {
         return false;
     }
 
-    return root.contains(target);
+    if(target){
+        return root.contains(target);
+    }
+    return false;
 }
 export default contains;
