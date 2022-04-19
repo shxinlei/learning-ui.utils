@@ -2,7 +2,8 @@ import { isObject, NumberEqual, StringEqual, BooleanEqual, undefinedEqual, nullE
 import ArrayUtils from "./ArrayUtils";
 
 
-class ObjectUtils {
+
+class ObjectUtils extends Object {
     /**
      * 数据对比
      * @param a { [key: string]: any | any[] }[]
@@ -10,7 +11,6 @@ class ObjectUtils {
      * @returns boolean
      */
     isEqual(a: { [key: string]: any | any[] }[] | any, b: { [key: string]: any | any[] }[] | any): boolean {
-
 
         if (isObject(a) && isObject(b)) {
 
@@ -80,7 +80,5 @@ class ObjectUtils {
         }
     }
 }
-    
-
 
 export default new ObjectUtils();

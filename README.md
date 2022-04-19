@@ -11,27 +11,27 @@ npm i @learning-ui/utils --save
 
 #### 详情
   
-1. isEqual 判断数据是否相等
+1. ObjectUtils.isEqual() || ArrayUtils.isEqual() 判断数据是否相等
 2. uuid 生成对应位数的uuid
 3. text 用于获取文字的高度和宽度
 4. uploadFileMd5 多个文件上传前获取每个文件的md5 值
 5. scrollHandel 滚动到最下方激活事件
-6. arrayMove 根据数组下标移动到对应的位置
+6. ArrayUtils.arrayMove() 根据数组下标移动到对应的位置
 7. eventManager 事件总线
 8. download 下载
-9. unique 数组去重
+9. ArrayUtils.unique() 数组去重
 10. formDeepClone 深度拷贝数据
 11. formatTime 将时间戳转换为 年月日时分秒 
 
 
 
-##### isEqual(a , b)
+##### ObjectUtils.isEqual() || ArrayUtils.isEqual()
 
 ```javascript
-import { isEqual } from "@learning-ui/utils";
+import { ObjectUtils } from "@learning-ui/utils";
 
 // a 和 b 可以使任意类型
-console.log(isEqual(a , b));
+console.log(ObjectUtils.isEqual(a , b) , ArrayUtils.isEqual(a, b));
 ```
 
 ##### uuid(number)
@@ -133,30 +133,30 @@ const App = () => {
 };
 ```
 
-##### arrayMove(array , from , to)
+##### ArrayUtils.arrayMove(array , from , to)
 
 ------
 
 ```javascript
-import { arrayMove } from "@learning-ui/utils"
+import { ArrayUtils } from "@learning-ui/utils"
 
 
 let arr = [ 1 , 2 , 3, 4, 5];
-arrayMove(arr , 2 , 4) //[1, 2, 4, 5, 3]
+ArrayUtils.arrayMove(arr , 2 , 4) //[1, 2, 4, 5, 3]
 ```
 
-##### unique(arr , key?:)
+##### ArrayUtils.unique(arr , key?:)
 
 ------
 
 ```javascript
-import { unique } from "@learning-ui/utils"
+import { ArrayUtils } from "@learning-ui/utils"
 
 let arr = [ 1 , 2 , 3, 4, 5 , 4 , 5];
-unique(arr) //[1, 2, 3, 4, 5]
+ArrayUtils.unique(arr) //[1, 2, 3, 4, 5]
 
 let arr = [ {name: "a"} , {name: "b"} ,{name: "a"}];
-unique(arr) //[{name: "a"} , {name: "b"}]
+ArrayUtils.unique(arr) //[{name: "a"} , {name: "b"}]
 
 ```
 

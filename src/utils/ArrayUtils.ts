@@ -3,7 +3,7 @@ import { NumberEqual, StringEqual, BooleanEqual, undefinedEqual, nullEqual, isOb
 import ObjectUtils from "./ObjectUtils"
 
 
-class _ArrayUtils {
+class ArrayUtils extends Array {
     /**
      * 数组移位
      * @param array 数组
@@ -110,5 +110,4 @@ class _ArrayUtils {
     }
 }
 
-// let _Array:Array<any> = new Array<any>();
-export default new _ArrayUtils();
+export default new ArrayUtils();
