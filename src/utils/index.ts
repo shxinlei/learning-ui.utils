@@ -168,7 +168,7 @@ export const scrollHandel = <T>(e:T | any , callback: (arg:T) => void) => {
 
 
 // 移动数组元素的位置
-// export const arrayMove = ArrayUtils.arrayMove;
+export const arrayMove = ArrayUtils.arrayMove;
 //
 //
-// export const unique = ArrayUtils.unique;
+export const unique = ArrayUtils.unique;
