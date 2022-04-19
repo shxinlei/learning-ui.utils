@@ -19,11 +19,9 @@ npm i @learning-ui/utils --save
 6. arrayMove 根据数组下标移动到对应的位置
 7. eventManager 事件总线
 8. download 下载
-9. debounce 防抖
-10. throttle 节流
-11. unique 数组去重
-12. formDeepClone 深度拷贝数据
-13. formatTime 将时间戳转换为 年月日时分秒 
+9. unique 数组去重
+10. formDeepClone 深度拷贝数据
+11. formatTime 将时间戳转换为 年月日时分秒 
 
 
 
