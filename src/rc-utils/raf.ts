@@ -21,18 +21,12 @@ export default function wrapperRaf(callback: () => void, times = 1): number {
 
   function callRef(leftTimes: number) {
     if (leftTimes === 0) {
-      // Clean up
       cleanup(id);
-
-      // Trigger
       callback();
     } else {
-      // Next _raf
       const realId = _raf(() => {
         callRef(leftTimes - 1);
       });
-
-      // Bind real _raf id
       rafIds.set(id, realId);
     }
   }

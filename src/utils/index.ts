@@ -101,12 +101,9 @@ export const uuid = (len: number = 32, radix: number = 16): string => {
     radix = radix || chars.length;
 
     if (len) {
-        // Compact form
         for (i = 0; i < len; i++) uuid[i] = chars[0 | (Math.random() * radix)];
     } else {
-        // rfc4122, version 4 form
         let r;
-
         uuid[14] = '4';
 
         for (i = 0; i < 36; i++) {
@@ -123,26 +120,34 @@ export const uuid = (len: number = 32, radix: number = 16): string => {
 
 /**
  * 深度克隆数据
- * @param o array | object
- * @returns 
+ * @returns
+ * @param target
  */
-export const formDeepClone = <T>(o: T[] | T): T | T[] | any => {
-    if (typeof o === 'string' || typeof o === 'number' || typeof o === 'boolean' || typeof o === 'undefined') {
-      return o;
-    } else if (Array.isArray(o)) { // 如果是数组，则定义一个新数组，完成复制后返回
-      let _arr: T[] = [];
-      o.forEach(item => {
-        _arr.push(item);
-      });
-      return _arr;
-    } else if (typeof o === 'object') {
-      let _o: any = {};
-      for (let key in o) {
-        _o[key] = formDeepClone(o[key]);
-      }
-      return _o;
+export const formDeepClone = <T>(target: T[] | T): T | T[] | unknown => {
+    if (typeof target !== "object") return target;
+
+    let obj;
+    if (Array.isArray(target)) {
+        obj = [];
+    } else {
+        obj = {};
     }
-    return o
+    // @ts-ignore
+    for (let prop in target) {
+        // obj.hasOwnProperty 判断某个对象是否含有指定的属性
+        // 该方法会忽略掉从原型链上继承的属性
+        // @ts-ignore
+        if (target.hasOwnProperty(prop)) {
+            if (typeof target === "object") {
+                // @ts-ignore
+                obj[prop] = formDeepClone(target[prop]);
+            } else {
+                // @ts-ignore
+                obj[prop] = target[prop];
+            }
+        }
+    }
+    return obj;
 };
 
 

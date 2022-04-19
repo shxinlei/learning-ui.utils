@@ -108,7 +108,7 @@ class _ArrayUtils {
             return Array.from(new Set(arr));
         }
     }
-};
+}
 
 // let _Array:Array<any> = new Array<any>();
 export default new _ArrayUtils();

@@ -186,7 +186,6 @@ formatTime(1635754317815, ["/", ":"]); // "2021/11/01 16:11:57"
 
 ```
 
-
 #### 事件总线
 
 ##### eventManager
@@ -213,37 +212,4 @@ eventManager.off("click" , eventManager.events["click"][0]); // 移除 总事件
 
 
 eventManager.back("click"); // 回退为上一次 click 事件 (废弃)
-```
-
-#### 节流和防抖
-
-##### debounce({ context?: , func , wait?: , immediate?: })
-
-------
-
-```javascript
-import { debounce } from "@learning-ui/utils";
-
-
-debounce({
-    context: 参数, 
-	func: 需要节流的方法, 
-    wait: 等待时间 300, 
-    immediate: 是否立即执行
-})
-```
-
-##### throttle({ context?: , func , wait?: , immediate?:  })
-
-------
-
-```javascript
-import { throttle } from "@learning-ui/utils";
-
-throttle({
-    context: 参数, 
-	func: 需要节流的方法, 
-    wait: 等待时间 300, 
-    immediate: 是否立即执行
-})
 ```
