@@ -25,30 +25,11 @@ export const BooleanEqual = (a: unknown, b: unknown) => {
     }
 }
 
-export const undefinedEqual = (a: unknown, b: unknown) => {
-    if (typeof a === "undefined" && typeof b === "undefined") {
-        return true;
-    } else {
-        return false;
-    }
-}
+export const undefinedEqual = (a: unknown, b: unknown) => typeof a === "undefined" && typeof b === "undefined";
 
-export const nullEqual = (a: unknown, b: unknown) => {
-    if (typeof a === "object" && typeof b === "object" && a === null && b === null) {
-        return true;
-    } else {
-        return false;
-    }
-}
+export const nullEqual = (a: unknown, b: unknown) => typeof a === "object" && typeof b === "object" && a === null && b === null;
 
-
-export const isObject = (any: unknown) => {
-    if (typeof any === 'object' && any !== null && typeof any !== undefined && !Array.isArray(any)) {
-        return true;
-    }
-    return false;
-}
-
+export const isObject = (any: unknown) => typeof any === 'object' && any !== null && typeof any !== undefined && !Array.isArray(any);
 
 /**
  * 数据对比
@@ -66,12 +47,15 @@ export const isEqual = (a: unknown, b: unknown) => {
         if (typeof a === "number") {
             return NumberEqual(a, b);
         }
+
         if (typeof a === "string") {
             return StringEqual(a, b);
         }
+
         if (typeof a === "undefined") {
             return undefinedEqual(a, b);
         }
+
         if (a === null) {
             return nullEqual(a, b);
         }
@@ -166,9 +150,3 @@ export const scrollHandel = <T>(e:T | any , callback: (arg:T) => void) => {
     }
 };
 
-
-// 移动数组元素的位置
-export const arrayMove = ArrayUtils.arrayMove;
-//
-//
-export const unique = ArrayUtils.unique;

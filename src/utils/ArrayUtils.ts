@@ -82,17 +82,7 @@ class ArrayUtils extends Array {
     unique<T>(arr: T[], key?: string): T[] {
         if(!Array.isArray(arr)) throw new Error("unique 不是一个数组"); 
         
-        if (key && typeof key === "string") {
-            // let map = new Map();
-
-            // for (let i = 0; i < arr.length; i++) {
-            //     let element: { [key: string]: any } = arr[i];
-            //     if (!map.has(element[key])) {
-            //         map.set(element[key], element);
-            //     }
-            // }
-
-            // return [...map.values()];
+        if (key) {
             let set = new Set();
             let _array:T[] = []
             for (let i = 0; i < arr.length; i++) {
@@ -108,6 +98,8 @@ class ArrayUtils extends Array {
             return Array.from(new Set(arr));
         }
     }
+
+
 }
 
 export default new ArrayUtils();

@@ -8,8 +8,6 @@ npm i @learning-ui/utils --save
 ```
 
 
-> <div style="color:red">arrayMove, unique 在 1.0 将会被废弃</div>
-
 > <div style="color:green">增加 ObjectUtils ArrayUtils </div>
 
 #### 详情
