@@ -12,17 +12,21 @@ class XML {
         this.json_conversion = new JSON_CONVERSION();
     }
 
-    public parse(f: string | DataProps) {
-        if (typeof f === "string") {
-            let xmlJson = this.xml_conversion.parseXML(f); // xml 文本 转换为 xml json
-            return this.json_conversion.toData(xmlJson); // xml json转数据
-        } else {
-            let xmlJson = this.json_conversion.toXml(<DataProps>f); // data 数据转 json
-            return this.xml_conversion.writeXML(xmlJson); // json 转 xml
-        }
+
+    // xml 转 数据
+    public parse(f: string) {
+        let xmlJson = this.xml_conversion.parseXML(f); // xml 文本 转换为 xml json
+        return this.json_conversion.toData(xmlJson); // xml json转数据
     }
 
-    public stringify(k: string | DataProps) {
+    // 数据转 xml
+    public parseXML(f: DataProps) {
+        let xmlJson = this.json_conversion.toXml(<DataProps>f); // data 数据转 json
+        return this.xml_conversion.writeXML(xmlJson); // json 转 xml
+    }
+
+
+    public parseJSON(k: string | DataProps) {
         if (typeof k === "string") {
             return this.xml_conversion.parseXML(k); // xml 转为 xml json
         } else {
