@@ -7,7 +7,7 @@ import { uploadFileMd5 , sparkMd5File } from "./utils/file/upload"
 import ObjectUtils from "./utils/ObjectUtils"
 import ArrayUtils from "./utils/ArrayUtils"
 
-import XML_JSON from "./utils/XML";
+import XML from "./utils/XML";
 
 export {
     isEqual,
@@ -25,6 +25,6 @@ export {
     ArrayUtils,
     eventManager,
 
-    XML_JSON
+    XML
 }
 
