@@ -21,10 +21,10 @@ export default class Properties {
 		const json:{ [key: string]: any } = {};
 		Object.entries(properties).forEach(([key, value]) => {
 			if (typeof value === "string") {
-				if (key.indexOf("-") > -1) {
+				if (key.indexOf("-") > -1 || key.indexOf("#") > -1) {
 					json[key.substring(1)] = value;
 				} else {
-					json[key] = value;
+					json[`-${key}`] = value;
 				}
 			} else if (typeof value === "object") {
 				json[key] = this.toJson(value);

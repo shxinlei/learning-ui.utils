@@ -185,7 +185,7 @@ class XML_CONVERSION {
 
 	public writeXML(o: { [key: string]: any }) {
 		let xmlStr = "";
-		for (var m in o) {
+		for (let m in o) {
 			xmlStr += this.toXml(o[m], m, "\t\n", 0);
 		}
 		return xmlStr;
@@ -218,8 +218,6 @@ class XML_CONVERSION {
 						xml += this.toXml(v[m], m, ind, deep + 1);
 				}
 				xml += this.addIndSpace(ind, deep) + "</" + name + ">";
-			} else {
-				// xml += addIndSpace(ind, deep);
 			}
 		}
 		else {

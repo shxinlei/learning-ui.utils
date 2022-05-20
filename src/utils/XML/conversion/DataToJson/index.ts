@@ -1,4 +1,5 @@
 import Properties, { BPMN_ELEMENTS } from "../constant/Properties";
+import {BPMNShape} from "../constant";
 
 
 
@@ -31,10 +32,12 @@ interface PropsConstructor {
 export default class DataToJson {
     private properties: Properties;
     private constants: PropsConstructor;
+    private BPMNShape: Map<any, any>;
 
     constructor(props: PropsConstructor) {
         this.properties = new Properties();
         this.constants = props;
+        this.BPMNShape = BPMNShape(BPMN_ELEMENTS)
     }
 
 
@@ -158,7 +161,11 @@ export default class DataToJson {
             let width = 100;
             let height = 80;
             let { x, y } = node;
-        
+            const shapeConfig = this.BPMNShape.get(node.type);
+            if (shapeConfig) {
+                width = shapeConfig.width;
+                height = shapeConfig.height;
+            }
             x -= width / 2;
             y -= height / 2;
             const diagramData: { [key: string]: any } = {

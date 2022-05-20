@@ -1,4 +1,5 @@
-import Properties from "./Properties";
+import Properties, {BPMN_ELEMENTS} from "./Properties";
+import {BPMNShape} from "./index";
 
 
 
@@ -8,12 +9,14 @@ export default class NodeConfig {
     private DEFAULT_ELEMENT: any;
     private DEFAULT_ATTRS: any;
     private properties: Properties;
+    private BPMNShape: any;
 
 
     constructor(props: { DEFAULT_ELEMENT: any; DEFAULT_ATTRS: any; }){
         this.DEFAULT_ELEMENT = props.DEFAULT_ELEMENT;
         this.DEFAULT_ATTRS = props.DEFAULT_ATTRS;
         this.properties = new Properties();
+        this.BPMNShape = BPMNShape(BPMN_ELEMENTS)
     }
 
     /**
@@ -71,7 +74,11 @@ export default class NodeConfig {
 
         let text = {} as any;
         let name = processNodeItem[this.DEFAULT_ATTRS["-name"]]
-
+        const shapeConfig = this.BPMNShape.get(processKey);
+        if (shapeConfig) {
+            x += shapeConfig.width / 2;
+            y += shapeConfig.height / 2;
+        }
         // 自定义属性
         let properties: any;
         Object.entries(processNodeItem).forEach(([key, value]) => {
