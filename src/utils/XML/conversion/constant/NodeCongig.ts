@@ -1,22 +1,20 @@
-import Properties, {BPMN_ELEMENTS} from "./Properties";
+import Properties from "./Properties";
 import {BPMNShape} from "./index";
 
 
 
 
 
-export default class NodeConfig {
+export default class NodeConfig extends BPMNShape {
     private DEFAULT_ELEMENT: any;
     private DEFAULT_ATTRS: any;
     private properties: Properties;
-    private BPMNShape: any;
 
-
-    constructor(props: { DEFAULT_ELEMENT: any; DEFAULT_ATTRS: any; }){
+    constructor(props:any){
+        super();
         this.DEFAULT_ELEMENT = props.DEFAULT_ELEMENT;
         this.DEFAULT_ATTRS = props.DEFAULT_ATTRS;
         this.properties = new Properties();
-        this.BPMNShape = BPMNShape(BPMN_ELEMENTS)
     }
 
     /**

@@ -29,15 +29,14 @@ interface PropsConstructor {
     BPMN_NODE_DI_TAG: string;
 }
 
-export default class DataToJson {
+export default class DataToJson extends BPMNShape {
     private properties: Properties;
     private constants: PropsConstructor;
-    private BPMNShape: Map<any, any>;
 
     constructor(props: PropsConstructor) {
+        super()
         this.properties = new Properties();
         this.constants = props;
-        this.BPMNShape = BPMNShape(BPMN_ELEMENTS)
     }
 
 
