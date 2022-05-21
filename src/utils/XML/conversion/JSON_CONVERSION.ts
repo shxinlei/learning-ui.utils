@@ -129,7 +129,7 @@ class JSON_CONVERSION {
 		}
 	}
 
-	public toXml(data: DataProps) {
+	public toJSON(data: DataProps) {
 		
 		const DEFAULT_PROCESS_JSON = this.DATA_ToJson.process_conversion_json(data);
 		const DEFAULT_DIAGRAM_JSON = this.DATA_ToJson.diagram_conversion_json(data);

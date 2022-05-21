@@ -6,31 +6,32 @@ import {DataProps} from "./conversion/DataToJson";
 class XML {
     private readonly xml_conversion: XML_CONVERSION;
     private readonly json_conversion: JSON_CONVERSION;
-
+    private readonly xmlDecl: string;
     constructor() {
         this.xml_conversion = new XML_CONVERSION();
         this.json_conversion = new JSON_CONVERSION();
+	    this.xmlDecl = '<?xml version="1.0" encoding="UTF-8" ?>';
     }
 
 
-    // xml 转 数据
-    public parse(f: string) {
-        let xmlJson = this.xml_conversion.parseXML(f); // xml 文本 转换为 xml json
-        return this.json_conversion.toData(xmlJson); // xml json转数据
+    // xml 转 数据 xml => json => data
+    public parseData(f: string) {
+       let json = this.xml_conversion.parseXML(f) // 转为 json
+       return this.json_conversion.toData(json);
     }
 
-    // 数据转 xml
+    // 数据 转 xml  data => json => xml
     public parseXML(f: DataProps) {
-        let xmlJson = this.json_conversion.toXml(<DataProps>f); // data 数据转 json
-        return this.xml_conversion.writeXML(xmlJson); // json 转 xml
+        let json = this.json_conversion.toJSON(f);
+        return this.xmlDecl + this.xml_conversion.writeXML(json);
     }
 
 
     public parseJSON(k: string | DataProps) {
-        if (typeof k === "string") {
-            return this.xml_conversion.parseXML(k); // xml 转为 xml json
-        } else {
-            return this.json_conversion.toXml(<DataProps>k); // data 转 xml json
+        if(typeof k === "string"){
+            return this.xml_conversion.parseXML(k)
+        }else {
+            return this.xml_conversion.writeXML(k);
         }
     }
 }

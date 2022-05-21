@@ -87,7 +87,6 @@ export default class EdgeConfig {
 		}
 		// properties = { key: value, key1: value1 }
 		// {key: value} => [[key, value]]
-	
 		Object.entries(processEdgeValue).forEach(([key, value]) => {
 			if (!this.DEFAULT_ATTRS[key]) { // 如果 key 不存在 xml 属性默认属性中
 				if (!properties) properties = {};
@@ -99,7 +98,7 @@ export default class EdgeConfig {
 			properties = this.properties.toJson(properties);
 		}
 
-		return {
+		const edge:any = {
 			id: processEdgeValue[this.DEFAULT_ELEMENT.process.id], // process 线条中 id
 			type: this.BPMN_ELEMENTS.FLOW, // 类型为 bpmn 线条类型,
 			pointsList: diEdgeValue[this.DEFAULT_ELEMENT.di.waypoint].map(point => {
@@ -111,8 +110,11 @@ export default class EdgeConfig {
 			sourceId: processEdgeValue[this.DEFAULT_ATTRS["-sourceRef"]],
 			targetId: processEdgeValue[this.DEFAULT_ATTRS['-targetRef']],
 			properties, // 自定义的bpmn 属性
-			text: text || undefined, // 线条名称
 		};
+		if(text){
+			edge.text = text;
+		}
+		return edge;
 	}
 
 

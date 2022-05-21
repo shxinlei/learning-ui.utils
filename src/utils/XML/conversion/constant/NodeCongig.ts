@@ -69,8 +69,6 @@ export default class NodeConfig extends BPMNShape {
         // 获取 元素的 x 和 y
         let x = Number(diNode[this.DEFAULT_ELEMENT.di.bounds]['-x']);
         let y = Number(diNode[this.DEFAULT_ELEMENT.di.bounds]['-y']);
-
-        let text = {} as any;
         let name = processNodeItem[this.DEFAULT_ATTRS["-name"]]
         const shapeConfig = this.BPMNShape.get(processKey);
         if (shapeConfig) {
@@ -90,9 +88,13 @@ export default class NodeConfig extends BPMNShape {
             properties = this.properties.toJson(properties);
         }
 
-
+        let text;
         if (name) {
-
+            text = {
+                x,
+                y,
+                value: name,
+            };
             let diLabel = diNode[this.DEFAULT_ELEMENT.di.label];
             let textPosition = diLabel && diLabel[this.DEFAULT_ELEMENT.di.bounds];
 
@@ -100,26 +102,24 @@ export default class NodeConfig extends BPMNShape {
 
             // 自定义文本位置
             if (textPosition) {
-                //  console.log( textPosition)
                 text.x = Number(textPosition['-x']) + Number(textPosition['-width']) / 2;
                 text.y = Number(textPosition['-y']) + Number(textPosition['-height']) / 2;
             }
-
-            text = {
-                ...text,
-                value: name,
-            };
         }
 
 
-        return {
+        const node: any = {
             id: diNode[this.DEFAULT_ELEMENT.di.id],
             x: x,
             y: y,
             type: processKey,
             properties,
-            text: { ...text }
+            
         }
+        if(text){
+            node.text = text;
+        }
+        return node
     }
 
 }

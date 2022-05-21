@@ -3,6 +3,7 @@
  *	Yusuke Kawasaki http://www.kawa.net/
  */
 
+
 interface ObjTreeProps {
 	attr_prefix?: string; // 此属性允许您指定在每个属性名称之前插入的前缀字符
 	overrideMimeType?:
@@ -15,14 +16,13 @@ interface ObjTreeProps {
 
 class XML_CONVERSION {
 	private readonly overrideMimeType: string;
-	private readonly xmlDecl: string;
+
 	private readonly attr_prefix: string;
-	private readonly __force_array: { [key: string]: any };
+	private __force_array: { [key: string]: any };
 	private readonly force_array: string[];
 	private readonly soft_arrays: any;
 
 	constructor(props?: ObjTreeProps) {
-		this.xmlDecl = '<?xml version="1.0" encoding="UTF-8" ?>\n';
 		this.attr_prefix = props?.attr_prefix || '-';
 		this.overrideMimeType = props?.overrideMimeType || 'application/xml';
 		this.__force_array = {};
@@ -62,6 +62,7 @@ class XML_CONVERSION {
 	// 此方法解析 DOM 树（例如 responseXML.documentElement）并返回其转换后的 JavaScript 对象。
 	private parseDOM(root: any) {
 		if (!root) return;
+		this.__force_array = {};
 		if (this.force_array.length) {
 			for (let i = 0; i < this.force_array.length; i++) {
 				this.__force_array[this.force_array[i]] = 1;
@@ -177,12 +178,6 @@ class XML_CONVERSION {
 		}
 	}
 
-	// 此方法分析 JavaScript 对象树并返回其生成的 XML 源。
-	public _writeXML(tree: { [key: string]: any }) {
-		let xml = this.hash_to_xml(null, tree);
-		return this.xmlDecl + xml;
-	}
-
 	public writeXML(o: { [key: string]: any }) {
 		let xmlStr = "";
 		for (let m in o) {
@@ -221,90 +216,16 @@ class XML_CONVERSION {
 			}
 		}
 		else {
-			xml += this.addIndSpace(ind, deep) + "<" + name + ">" + v.toString() + "</" + name + ">";
+			xml += this.addIndSpace(ind, deep) + "<" + name + ">" + v + "</" + name + ">";
 		}
 		return xml;
 	}
 
-	private addIndSpace (ind: string, deep: number) {
+	private addIndSpace(ind: string, deep: number) {
 		for (let i = 0; i < deep; i++) {
-		   ind += '  ';
+			ind += '  ';
 		}
 		return ind;
-	 }
-
-
-	//  { a: { " " : " "} }
-	private hash_to_xml(name: string | null, tree: { [x: string]: any }) {
-		let element = [];
-		let attr = [];
-		for (let key in tree) {
-			if (!tree.hasOwnProperty(key)) continue;
-			let val = tree[key];
-			if (key.charAt(0) !== this.attr_prefix) {
-				if (typeof val === 'undefined' || val === null) {
-					element[element.length] = '<' + key + ' />';
-				} else if (typeof val === 'object' && val.constructor === Array) {
-					element[element.length] = this.array_to_xml(key, val);
-				} else if (typeof val === 'object') {
-					element[element.length] = this.hash_to_xml(key, val);
-				} else {
-					element[element.length] = this.scalar_to_xml(key, val);
-				}
-			} else {
-				attr[attr.length] =
-					' ' + key.substring(1) + '="' + this.xml_escape(val) + '"';
-			}
-		}
-
-		let jattr = attr.join('');
-		let jelem: any = element.join('');
-		if (typeof name == 'undefined' || name == null) {
-			// no tag
-		} else if (element.length > 0) {
-			if (jelem.match(/\n/)) {
-				jelem = '<' + name + jattr + '>\n' + jelem + '</' + name + '>\n';
-			} else {
-				jelem = '<' + name + jattr + '>' + jelem + '</' + name + '>\n';
-			}
-		} else {
-			jelem = '<' + name + jattr + ' />\n';
-		}
-		return jelem;
-	}
-
-	private array_to_xml(name: string, array: string | any[]) {
-		let out: string[] = [];
-		for (let i = 0; i < array.length; i++) {
-			let val = array[i];
-			if (typeof val === 'undefined' || val === null) {
-				out[out.length] = '<' + name + ' />';
-			} else if (typeof val === 'object' && val.constructor === Array) {
-				out[out.length] = this.array_to_xml(name, val);
-			} else if (typeof val === 'object') {
-				out[out.length] = this.hash_to_xml(name, val);
-			} else {
-				out[out.length] = this.scalar_to_xml(name, val);
-			}
-		}
-		return out.join('');
-	}
-
-	private scalar_to_xml(name: string, text: any) {
-		if (name === '#text') {
-			return this.xml_escape(text);
-		} else {
-			return '<' + name + '>' + this.xml_escape(text) + '</' + name + '>\n';
-		}
-	}
-
-	//  method: xml_escape( text )
-	private xml_escape(text: any) {
-		return String(text)
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;');
 	}
 }
 

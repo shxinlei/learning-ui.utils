@@ -14,23 +14,32 @@ export const BPMN_ELEMENTS = {
 
 export default class Properties {
 
-	
-    
+
+
 	// 转换为正常的 json
-	public toJson(properties: { [key: string] : any }) {
-		const json:{ [key: string]: any } = {};
+	public toJson(properties: { [key: string]: any }) {
+		const json: { [key: string]: any } = {};
 		Object.entries(properties).forEach(([key, value]) => {
-			if (typeof value === "string") {
-				if (key.indexOf("-") > -1 || key.indexOf("#") > -1) {
-					json[key.substring(1)] = value;
+			if (typeof value !== 'object') {
+				if (key.indexOf('-') === 0 || key.indexOf("#") === 0) { // 如果本来就是“-”开头的了，那就不处理了。
+					json[key] = value;
 				} else {
 					json[`-${key}`] = value;
 				}
-			} else if (typeof value === "object") {
-				json[key] = this.toJson(value);
 			} else {
-				json[key] = value;
+				json[key] = this.toJson(value);
 			}
+			// if (typeof value === "string") {
+			// 	if (key.indexOf("-") > -1 || key.indexOf("#") > -1) {
+			// 		json[key.substring(1)] = value;
+			// 	} else {
+			// 		json[`-${key}`] = value;
+			// 	}
+			// } else if (typeof value === "object") {
+			// 	json[key] = this.toJson(value);
+			// } else {
+			// 	json[key] = value;
+			// }
 		})
 		return json;
 	}
