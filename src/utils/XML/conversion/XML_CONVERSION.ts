@@ -186,37 +186,37 @@ class XML_CONVERSION {
 		return xmlStr;
 	}
 
-	private toXml(v: any , name: string, ind: string , deep: number) {
+	private toXml(nodeValue: any , name: string, ind: string , deep: number) {
 		let xml = "";
-		if (v instanceof Array) {
-			for (let i = 0, n = v.length; i < n; i++) {
-				xml += this.addIndSpace(ind, deep) + this.toXml(v[i], name, ind, deep + 1);
+		if (nodeValue instanceof Array) {
+			for (let i = 0, n = nodeValue.length; i < n; i++) {
+				xml += this.addIndSpace(ind, deep) + this.toXml(nodeValue[i], name, ind, deep + 1);
 			}
 		}
-		else if (typeof (v) == "object") {
+		else if (typeof (nodeValue) == "object") {
 			let hasChild = false;
 			xml += this.addIndSpace(ind, deep) + "<" + name;
-			for (let m in v) {
+			for (let m in nodeValue) {
 				if (m.charAt(0) == "-")
-					xml += " " + m.substring(1) + "=\"" + v[m].toString() + "\"";
+					xml += " " + m.substring(1) + "=\"" + nodeValue[m].toString() + "\"";
 				else
 					hasChild = true;
 			}
 			xml += hasChild ? ">" : " />";
 			if (hasChild) {
-				for (let m in v) {
+				for (let m in nodeValue) {
 					if (m == "#text")
-						xml += v[m];
+						xml += nodeValue[m];
 					else if (m == "#cdata")
-						xml += "<![CDATA[" + v[m] + "]]>";
+						xml += "<![CDATA[" + nodeValue[m] + "]]>";
 					else if (m.charAt(0) != "-")
-						xml += this.toXml(v[m], m, ind, deep + 1);
+						xml += this.toXml(nodeValue[m], m, ind, deep + 1);
 				}
 				xml += this.addIndSpace(ind, deep) + "</" + name + ">";
 			}
 		}
 		else {
-			xml += this.addIndSpace(ind, deep) + "<" + name + ">" + v + "</" + name + ">";
+			xml += this.addIndSpace(ind, deep) + "<" + name + ">" + nodeValue.toString() + "</" + name + ">";
 		}
 		return xml;
 	}
