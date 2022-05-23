@@ -63,7 +63,7 @@ class JSON_CONVERSION {
 
 	private DEFAULT_PROCESS_JSON = { // 默认匹配process JSON 数据
 		'-id': `Process_${uuid()}`,
-		'-isExecutable': 'false',
+		'-isExecutable': 'true',
 	};
 	private DEFAULT_DIAGRAM_JSON = { // 默认匹配 diagram JSON 数据
 		'-id': 'BPMNPlane_1',
@@ -137,13 +137,19 @@ class JSON_CONVERSION {
 		return {
 			'bpmn:definitions': {
 				'-id': `Definitions_${definitionsId}`,
-				"-targetNamespace": "http://bpmn.io/schema/bpmn",
+				"-xmlns:bpmn":"http://www.omg.org/spec/BPMN/20100524/MODEL",
+				"-xmlns:activiti":"http://activiti.org/bpmn" ,
+				"-xmlns:bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI" ,
+				"-xmlns:dc": "http://www.omg.org/spec/DD/20100524/DC" ,
+				"-xmlns:di": "http://www.omg.org/spec/DD/20100524/DI" ,
+				"-xmlns:tns": "http://bpmn.io/schema/bpmn" ,
+				"-xmlns:xsd": "http://www.w3.org/2001/XMLSchema" ,
+				"-xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance" ,
+				"-expressionLanguage": "http://www.w3.org/1999/XPath" ,
+				"-targetNamespace": "http://bpmn.io/schema/bpmn" ,
+				"-typeLanguage": "http://www.w3.org/2001/XMLSchema",
 				"-xmlns:bioc": "http://bpmn.io/schema/bpmn/biocolor/1.0",
-				"-xmlns:bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL",
-				"-xmlns:bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI",
 				"-xmlns:color": "http://www.omg.org/spec/BPMN/non-normative/color/1.0",
-				"-xmlns:dc": "http://www.omg.org/spec/DD/20100524/DC",
-				'-xmlns:di': 'http://www.omg.org/spec/DD/20100524/DI',
 				'bpmn:process': DEFAULT_PROCESS_JSON,
 				'bpmndi:BPMNDiagram': {
 					'-id': `BPMNDiagram_${definitionsId}`,
