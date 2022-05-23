@@ -205,12 +205,13 @@ class XML_CONVERSION {
 			xml += hasChild ? ">" : " />";
 			if (hasChild) {
 				for (let m in nodeValue) {
-					if (m == "#text")
-						xml += nodeValue[m];
-					else if (m == "#cdata")
-						xml += "<![CDATA[" + nodeValue[m] + "]]>";
-					else if (m.charAt(0) != "-")
-						xml += this.toXml(nodeValue[m], m, ind, deep + 1);
+					if (m == "#text"){
+						xml += nodeValue[m]
+					}else if (m == "#cdata"){
+						xml += "<![CDATA[" + nodeValue[m] + "]]>"
+					}else if (m.charAt(0) != "-"){
+						xml += this.toXml(nodeValue[m], m, ind, deep + 1)
+					}
 				}
 				xml += this.addIndSpace(ind, deep) + "</" + name + ">";
 			}
