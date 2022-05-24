@@ -29,17 +29,6 @@ export default class Properties {
 			} else {
 				json[key] = this.toJson(value);
 			}
-			// if (typeof value === "string") {
-			// 	if (key.indexOf("-") > -1 || key.indexOf("#") > -1) {
-			// 		json[key.substring(1)] = value;
-			// 	} else {
-			// 		json[`-${key}`] = value;
-			// 	}
-			// } else if (typeof value === "object") {
-			// 	json[key] = this.toJson(value);
-			// } else {
-			// 	json[key] = value;
-			// }
 		})
 		return json;
 	}
