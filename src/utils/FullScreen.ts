@@ -17,7 +17,7 @@ class FullScreen {
             // @ts-ignore
             if (elem.requestFullscreen) {
                 elem.requestFullscreen().then(() => {
-                    callback && callback.success && callback.success("打开全屏成功");
+                    callback && callback.success && callback.success("open");
                 }).catch((err: Error) => {
                     console.warn(`启用全屏出现错误: ${err.message} (${err.name})`);
                     callback && callback.error && callback.error(`启用全屏出现错误: ${err.message} (${err.name})`);
@@ -29,7 +29,7 @@ class FullScreen {
 
         } else {
             document.exitFullscreen().then(() => {
-                callback && callback.success && callback.success("退出全屏成功");
+                callback && callback.success && callback.success("close");
             })
                 .catch((err) => new Error(err));
         }
