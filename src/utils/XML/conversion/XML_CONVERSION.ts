@@ -192,8 +192,7 @@ class XML_CONVERSION {
 			for (let i = 0, n = nodeValue.length; i < n; i++) {
 				xml += this.addIndSpace(ind, deep) + this.toXml(nodeValue[i], name, ind, deep + 1);
 			}
-		}
-		else if (typeof (nodeValue) == "object") {
+		}else if (typeof (nodeValue) == "object") {
 			let hasChild = false;
 			xml += this.addIndSpace(ind, deep) + "<" + name;
 			for (let m in nodeValue) {
@@ -205,7 +204,9 @@ class XML_CONVERSION {
 			xml += hasChild ? ">" : " />";
 			if (hasChild) {
 				for (let m in nodeValue) {
-					if (m == "#text"){
+					if(m === "documentation") {
+						xml += "<documentation>" + nodeValue[m] + "</documentation>"
+					}else if (m == "#text"){
 						xml += nodeValue[m]
 					}else if (m == "#cdata"){
 						xml += "<![CDATA[" + nodeValue[m] + "]]>"
@@ -215,8 +216,7 @@ class XML_CONVERSION {
 				}
 				xml += this.addIndSpace(ind, deep) + "</" + name + ">";
 			}
-		}
-		else {
+		}else {
 			xml += this.addIndSpace(ind, deep) + "<" + name + ">" + nodeValue.toString() + "</" + name + ">";
 		}
 		return xml;

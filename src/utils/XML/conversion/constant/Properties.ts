@@ -14,17 +14,17 @@ export const BPMN_ELEMENTS = {
 
 export default class Properties {
 
-
-
 	// 转换为正常的 json
 	public toJson(properties: { [key: string]: any }) {
 		const json: { [key: string]: any } = {};
+		let inter = [ "-" , "#" , "documentation" ];
 		Object.entries(properties).forEach(([key, value]) => {
 			if (typeof value !== 'object') {
-				if (key.indexOf('-') === 0 || key.indexOf("#") === 0) { // 如果本来就是“-”开头的了，那就不处理了。
+				if (inter.includes(key)) { // 如果本来就是“-”开头的了，那就不处理了。
+                    console.log(key , 'key')
 					json[key] = value;
 				} else {
-					json[`-${key}`] = value;
+                    json[`-${key}`] = value;
 				}
 			} else {
 				json[key] = this.toJson(value);

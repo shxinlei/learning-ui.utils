@@ -29,9 +29,9 @@ class XML {
 
     public parseJSON(k: string | DataProps) {
         if(typeof k === "string"){
-            return this.xml_conversion.parseXML(k)
+            return this.xml_conversion.parseXML(k);
         }else {
-            return this.xml_conversion.writeXML(k);
+            return this.json_conversion.toJSON(k);
         }
     }
 }
