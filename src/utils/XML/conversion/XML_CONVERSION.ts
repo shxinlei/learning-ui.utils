@@ -205,7 +205,7 @@ class XML_CONVERSION {
 			if (hasChild) {
 				for (let m in nodeValue) {
 					if(m === "documentation") {
-						xml += "<documentation>" + nodeValue[m] + "</documentation>"
+						xml += "<documentation>" + nodeValue[m] + "</documentation>" + "\n";
 					}else if (m == "#text"){
 						xml += nodeValue[m]
 					}else if (m == "#cdata"){
