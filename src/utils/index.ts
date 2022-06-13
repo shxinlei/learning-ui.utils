@@ -108,30 +108,66 @@ export const uuid = (len: number = 32, radix: number = 16): string => {
  * @param target
  */
 export const formDeepClone = <T>(target: T[] | T): T | T[] | unknown => {
-    if (typeof target !== "object") return target;
+    const map = new WeakMap()
+    
+    function isObject(target: any) {
+        return (typeof target === 'object' && target ) || typeof target === 'function'
+    }
 
-    let obj;
-    if (Array.isArray(target)) {
-        obj = [];
-    } else {
-        obj = {};
-    }
-    // @ts-ignore
-    for (let prop in target) {
-        // obj.hasOwnProperty 判断某个对象是否含有指定的属性
-        // 该方法会忽略掉从原型链上继承的属性
-        // @ts-ignore
-        if (target.hasOwnProperty(prop)) {
-            if (typeof target === "object") {
-                // @ts-ignore
-                obj[prop] = formDeepClone(target[prop]);
-            } else {
-                // @ts-ignore
-                obj[prop] = target[prop];
-            }
+    function clone(data: any) {
+        if (!isObject(data)) {
+            return data
         }
+        if ([Date, RegExp].includes(data.constructor)) {
+            return new data.constructor(data)
+        }
+        if (typeof data === 'function') {
+            return new Function('return ' + data.toString())()
+        }
+        const exist = map.get(data)
+        if (exist) {
+            return exist
+        }
+        if (data instanceof Map) {
+            const result = new Map()
+            map.set(data, result)
+            data.forEach((val, key) => {
+                if (isObject(val)) {
+                    result.set(key, clone(val))
+                } else {
+                    result.set(key, val)
+                }
+            })
+            return result
+        }
+        if (data instanceof Set) {
+            const result = new Set()
+            map.set(data, result)
+            data.forEach(val => {
+                if (isObject(val)) {
+                    result.add(clone(val))
+                } else {
+                    result.add(val)
+                }
+            })
+            return result
+        }
+        const keys = Reflect.ownKeys(data)
+        const allDesc = Object.getOwnPropertyDescriptors(data)
+        const result = Object.create(Object.getPrototypeOf(data), allDesc)
+        map.set(data, result)
+        keys.forEach(key => {
+            const val = data[key]
+            if (isObject(val)) {
+                result[key] = clone(val)
+            } else {
+                result[key] = val
+            }
+        })
+        return result
     }
-    return obj;
+
+    return clone(target)
 };
 
 
