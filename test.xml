@@ -1,169 +1,332 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="Definitions_1" name="" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema">
-    <bpmn:process id="Process_1f17660dd4d5e31b9" isClosed="false" isExecutable="true" processType="None">
-        <bpmn:startEvent id="start-node" name="开始">
-            <bpmn:outgoing>edge1</bpmn:outgoing>
-        </bpmn:startEvent>
-
-        <bpmn:userTask id="node2" name="world">
-            <bpmn:incoming>edge1</bpmn:incoming>
-            <bpmn:outgoing>edge2</bpmn:outgoing>
-        </bpmn:userTask>
-
-        <bpmn:userTask id="node5" name="任务1">
-            <bpmn:incoming>edge3</bpmn:incoming>
-            <bpmn:outgoing>edge5</bpmn:outgoing>
-        </bpmn:userTask>
-
-        <bpmn:userTask id="node6" name="任务2">
-            <bpmn:incoming>edge4</bpmn:incoming>
-            <bpmn:outgoing>edge6</bpmn:outgoing>
-        </bpmn:userTask>
-
-        <bpmn:userTask id="node7" name="任务3">
-
-            <bpmn:incoming>edge5</bpmn:incoming>
-
-            <bpmn:incoming>edge6</bpmn:incoming>
-            <bpmn:outgoing>edge7</bpmn:outgoing>
-        </bpmn:userTask>
-        <bpmn:exclusiveGateway id="node4" name="单一网关">
-            <bpmn:incoming>edge2</bpmn:incoming>
-
-            <bpmn:outgoing>edge3</bpmn:outgoing>
-
-            <bpmn:outgoing>edge4</bpmn:outgoing>
-        </bpmn:exclusiveGateway>
-        <bpmn:endEvent id="node3" name="结束">
-            <bpmn:incoming>edge7</bpmn:incoming>
-        </bpmn:endEvent>
-
-        <bpmn:sequenceFlow id="edge1" sourceRef="start-node" targetRef="node2" />
-
-        <bpmn:sequenceFlow id="edge2" sourceRef="node2" targetRef="node4" />
-
-        <bpmn:sequenceFlow id="edge3" sourceRef="node4" targetRef="node5" name="2">
-            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"> <![CDATA[a>1]]>	
-            </bpmn:conditionExpression>
-        </bpmn:sequenceFlow>
-
-        <bpmn:sequenceFlow id="edge4" sourceRef="node4" targetRef="node6" name="1">
-            <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"> <![CDATA[a<1]]>	
-        </bpmn:conditionExpression>
-        </bpmn:sequenceFlow>
-
-        <bpmn:sequenceFlow id="edge5" sourceRef="node5" targetRef="node7"/>
-
-        <bpmn:sequenceFlow id="edge6" sourceRef="node6" targetRef="node7" />
-
-        <bpmn:sequenceFlow id="edge7" sourceRef="node7" targetRef="node3" />
-    </bpmn:process>
-    <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
-        <bpmndi:BPMNPlane bpmnElement="Process_1f17660dd4d5e31b9">
-
-            <bpmndi:BPMNEdge id="edge1_di" bpmnElement="edge1">
-
-                <di:waypoint x="50" y="100" />
-
-                <di:waypoint x="300" y="100" />
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge2_di" bpmnElement="edge2">
-
-                <di:waypoint x="300" y="100" />
-
-                <di:waypoint x="500" y="100" />
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge3_di" bpmnElement="edge3">
-
-                <di:waypoint x="500" y="100" />
-
-                <di:waypoint x="580" y="100" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="10" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge4_di" bpmnElement="edge4">
-
-                <di:waypoint x="500" y="100" />
-
-                <di:waypoint x="690" y="100" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="10" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge5_di" bpmnElement="edge5">
-
-                <di:waypoint x="580" y="100" />
-
-                <di:waypoint x="790" y="100" />
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge6_di" bpmnElement="edge6">
-
-                <di:waypoint x="690" y="100" />
-
-                <di:waypoint x="790" y="100" />
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNEdge id="edge7_di" bpmnElement="edge7">
-
-                <di:waypoint x="790" y="100" />
-
-                <di:waypoint x="1000" y="100" />
-            </bpmndi:BPMNEdge>
-
-            <bpmndi:BPMNShape id="start-node_di" bpmnElement="start-node">
-                <dc:Bounds x="30" y="80" width="40" height="40" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="20" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node2_di" bpmnElement="node2">
-                <dc:Bounds x="250" y="60" width="100" height="80" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="50" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node4_di" bpmnElement="node4">
-                <dc:Bounds x="480" y="80" width="40" height="40" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="40" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node5_di" bpmnElement="node5">
-                <dc:Bounds x="530" y="60" width="100" height="80" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="30" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node6_di" bpmnElement="node6">
-                <dc:Bounds x="640" y="60" width="100" height="80" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="30" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node7_di" bpmnElement="node7">
-                <dc:Bounds x="740" y="60" width="100" height="80" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="30" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-
-            <bpmndi:BPMNShape id="node3_di" bpmnElement="node3">
-                <dc:Bounds x="980" y="80" width="40" height="40" />
-                <bpmndi:BPMNLabel>
-                    <dc:Bounds x="NaN" y="NaN" width="20" height="14" />
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-        </bpmndi:BPMNPlane>
-    </bpmndi:BPMNDiagram>
+<?xml version="1.0" encoding="UTF-8" ?>	
+<bpmn:definitions id="Definitions_de4b22db6ba131c1450a4830810d8e91" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0">	
+  <bpmn:process id="Process_0d3212621c215119895a9d5508a8824c" isExecutable="true">	
+    <bpmn:startEvent id="StartEvent_1" name="开始">	
+      <bpmn:outgoing>a777f</bpmn:outgoing>	
+    </bpmn:startEvent>	
+    	
+      <bpmn:userTask id="aa3eb" name="action_outputParam_py">
+        <bpmn:incoming>a777f</bpmn:incoming>	
+        <bpmn:outgoing>afed5</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="a2602">	
+        <bpmn:incoming>a26d6</bpmn:incoming>	
+        <bpmn:outgoing>aad6c</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="ac3ee" name="qew">	
+        <bpmn:incoming>a4454</bpmn:incoming>	
+        <bpmn:outgoing>a9791</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="a2aba" name="pwd">	
+        <bpmn:incoming>a5d7b</bpmn:incoming>	
+        <bpmn:outgoing>a71d6</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="a3f18" name="4334">	
+        <bpmn:incoming>acf31</bpmn:incoming>	
+        <bpmn:outgoing>a12a3</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="ae61e">	
+        <bpmn:outgoing>a3f53</bpmn:outgoing>	
+        <bpmn:incoming>a6b58</bpmn:incoming>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="ae271" name="f">	
+        <bpmn:incoming>a2cab</bpmn:incoming>	
+        <bpmn:outgoing>ab6e9</bpmn:outgoing>	
+      </bpmn:userTask>	
+    	
+      <bpmn:userTask id="a1251" name="s">	
+        <bpmn:incoming>a5d3f</bpmn:incoming>	
+        <bpmn:outgoing>a0f24</bpmn:outgoing>	
+      </bpmn:userTask>	
+    <bpmn:exclusiveGateway id="aed67" name="单一网关">	
+      <bpmn:incoming>afed5</bpmn:incoming>	
+      	
+        <bpmn:outgoing>a26d6</bpmn:outgoing>	
+      	
+        <bpmn:outgoing>a6b58</bpmn:outgoing>	
+    </bpmn:exclusiveGateway>	
+    <bpmn:parallelGateway id="aef0c" name="并行网关">	
+      	
+        <bpmn:outgoing>a2cab</bpmn:outgoing>	
+      	
+        <bpmn:outgoing>a4454</bpmn:outgoing>	
+      	
+        <bpmn:outgoing>acf31</bpmn:outgoing>	
+      <bpmn:incoming>a71d6</bpmn:incoming>	
+    </bpmn:parallelGateway>	
+    <bpmn:manualTask id="a3586">	
+      <bpmn:outgoing>a5d7b</bpmn:outgoing>	
+      	
+        <bpmn:incoming>a3f53</bpmn:incoming>	
+      	
+        <bpmn:incoming>aad6c</bpmn:incoming>	
+    </bpmn:manualTask>	
+    <bpmn:complexGateway id="ac231" name="聚合网关">	
+      	
+        <bpmn:incoming>ab6e9</bpmn:incoming>	
+      	
+        <bpmn:incoming>a9791</bpmn:incoming>	
+      	
+        <bpmn:incoming>a12a3</bpmn:incoming>	
+      <bpmn:outgoing>a5d3f</bpmn:outgoing>	
+    </bpmn:complexGateway>	
+    <bpmn:endEvent id="a0b8b" name="结束">	
+      <bpmn:incoming>a0f24</bpmn:incoming>	
+    </bpmn:endEvent>	
+    	
+      <bpmn:sequenceFlow id="a777f" sourceRef="StartEvent_1" targetRef="aa3eb" />	
+    	
+      <bpmn:sequenceFlow id="afed5" sourceRef="aa3eb" targetRef="aed67" />	
+    	
+      <bpmn:sequenceFlow id="a26d6" sourceRef="aed67" targetRef="a2602" name="a">	
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${a26d6}	
+        </bpmn:conditionExpression>	
+      </bpmn:sequenceFlow>	
+    	
+      <bpmn:sequenceFlow id="a2cab" sourceRef="aef0c" targetRef="ae271" />	
+    	
+      <bpmn:sequenceFlow id="a4454" sourceRef="aef0c" targetRef="ac3ee" />	
+    	
+      <bpmn:sequenceFlow id="a5d7b" sourceRef="a3586" targetRef="a2aba" />	
+    	
+      <bpmn:sequenceFlow id="a3f53" sourceRef="ae61e" targetRef="a3586" />	
+    	
+      <bpmn:sequenceFlow id="a71d6" sourceRef="a2aba" targetRef="aef0c" />	
+    	
+      <bpmn:sequenceFlow id="ab6e9" sourceRef="ae271" targetRef="ac231" />	
+    	
+      <bpmn:sequenceFlow id="a9791" sourceRef="ac3ee" targetRef="ac231" />	
+    	
+      <bpmn:sequenceFlow id="a5d3f" sourceRef="ac231" targetRef="a1251" />	
+    	
+      <bpmn:sequenceFlow id="a0f24" sourceRef="a1251" targetRef="a0b8b" />	
+    	
+      <bpmn:sequenceFlow id="acf31" sourceRef="aef0c" targetRef="a3f18" />	
+    	
+      <bpmn:sequenceFlow id="a12a3" sourceRef="a3f18" targetRef="ac231" />	
+    	
+      <bpmn:sequenceFlow id="aad6c" sourceRef="a2602" targetRef="a3586" />	
+    	
+      <bpmn:sequenceFlow id="a6b58" sourceRef="aed67" targetRef="ae61e" name="b">	
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${a6b58}	
+        </bpmn:conditionExpression>	
+      </bpmn:sequenceFlow>	
+  </bpmn:process>	
+  <bpmndi:BPMNDiagram id="BPMNDiagram_de4b22db6ba131c1450a4830810d8e91">	
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0d3212621c215119895a9d5508a8824c">	
+      	
+        <bpmndi:BPMNEdge id="a777f_di" bpmnElement="a777f">	
+          	
+            <di:waypoint x="60" y="116" />	
+          	
+            <di:waypoint x="221" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="afed5_di" bpmnElement="afed5">	
+          	
+            <di:waypoint x="221" y="116" />	
+          	
+            <di:waypoint x="380" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a26d6_di" bpmnElement="a26d6">	
+          	
+            <di:waypoint x="540" y="116" />	
+          	
+            <di:waypoint x="380" y="116" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="10" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a2cab_di" bpmnElement="a2cab">	
+          	
+            <di:waypoint x="1180" y="16" />	
+          	
+            <di:waypoint x="1020" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a4454_di" bpmnElement="a4454">	
+          	
+            <di:waypoint x="1180" y="116" />	
+          	
+            <di:waypoint x="1020" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a5d7b_di" bpmnElement="a5d7b">	
+          	
+            <di:waypoint x="860" y="116" />	
+          	
+            <di:waypoint x="700" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a3f53_di" bpmnElement="a3f53">	
+          	
+            <di:waypoint x="540" y="216" />	
+          	
+            <di:waypoint x="700" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a71d6_di" bpmnElement="a71d6">	
+          	
+            <di:waypoint x="860" y="116" />	
+          	
+            <di:waypoint x="1020" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="ab6e9_di" bpmnElement="ab6e9">	
+          	
+            <di:waypoint x="1180" y="16" />	
+          	
+            <di:waypoint x="1340" y="16" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a9791_di" bpmnElement="a9791">	
+          	
+            <di:waypoint x="1180" y="116" />	
+          	
+            <di:waypoint x="1340" y="16" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a5d3f_di" bpmnElement="a5d3f">	
+          	
+            <di:waypoint x="1340" y="16" />	
+          	
+            <di:waypoint x="1500" y="16" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a0f24_di" bpmnElement="a0f24">	
+          	
+            <di:waypoint x="1500" y="16" />	
+          	
+            <di:waypoint x="1660" y="16" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="acf31_di" bpmnElement="acf31">	
+          	
+            <di:waypoint x="1180" y="216" />	
+          	
+            <di:waypoint x="1020" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a12a3_di" bpmnElement="a12a3">	
+          	
+            <di:waypoint x="1180" y="216" />	
+          	
+            <di:waypoint x="1340" y="16" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="aad6c_di" bpmnElement="aad6c">	
+          	
+            <di:waypoint x="540" y="116" />	
+          	
+            <di:waypoint x="700" y="116" />	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNEdge id="a6b58_di" bpmnElement="a6b58">	
+          	
+            <di:waypoint x="380" y="116" />	
+          	
+            <di:waypoint x="540" y="216" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="10" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNEdge>	
+      	
+        <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">	
+          <dc:Bounds x="40" y="120" width="40" height="40" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="20" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="aa3eb_di" bpmnElement="aa3eb">	
+          <dc:Bounds x="171" y="100" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="210" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a2602_di" bpmnElement="a2602">	
+          <dc:Bounds x="490" y="100" width="100" height="80" />	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="ac3ee_di" bpmnElement="ac3ee">	
+          <dc:Bounds x="1130" y="100" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="30" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a2aba_di" bpmnElement="a2aba">	
+          <dc:Bounds x="810" y="100" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="30" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a3f18_di" bpmnElement="a3f18">	
+          <dc:Bounds x="1130" y="200" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="40" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="aed67_di" bpmnElement="aed67">	
+          <dc:Bounds x="360" y="120" width="40" height="40" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="40" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="ae61e_di" bpmnElement="ae61e">	
+          <dc:Bounds x="490" y="200" width="100" height="80" />	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="ae271_di" bpmnElement="ae271">	
+          <dc:Bounds x="1130" y="0" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="10" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="aef0c_di" bpmnElement="aef0c">	
+          <dc:Bounds x="970" y="100" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="40" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a3586_di" bpmnElement="a3586">	
+          <dc:Bounds x="650" y="100" width="100" height="80" />	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="ac231_di" bpmnElement="ac231">	
+          <dc:Bounds x="1290" y="0" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="40" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a1251_di" bpmnElement="a1251">	
+          <dc:Bounds x="1450" y="0" width="100" height="80" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="10" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+      	
+        <bpmndi:BPMNShape id="a0b8b_di" bpmnElement="a0b8b">	
+          <dc:Bounds x="1640" y="20" width="40" height="40" />	
+          <bpmndi:BPMNLabel>	
+            <dc:Bounds x="NaN" y="NaN" width="20" height="14" />	
+          </bpmndi:BPMNLabel>	
+        </bpmndi:BPMNShape>	
+    </bpmndi:BPMNPlane>	
+  </bpmndi:BPMNDiagram>	
 </bpmn:definitions>

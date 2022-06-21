@@ -24,7 +24,7 @@ export interface sparkProps {
     chunkSize?: number
 }
 
-export const sparkMd5File = ({file, onprogress}: sparkProps) =>{
+export const sparkMd5File = ({ file, onprogress , ...rest }: sparkProps) =>{
     let _file = file;
     return new Promise((res, rej) => {
         // 拿到file 实例
@@ -37,7 +37,7 @@ export const sparkMd5File = ({file, onprogress}: sparkProps) =>{
         //这里需要用到File的slice( )方法，以下是兼容写法
         let blobSlice = File.prototype.slice, //|| File.prototype?.mozSlice || File.prototype?.webkitSlice,
             file = _file,
-            chunkSize = 1048576, //1048576, // 以每片2MB大小来逐次读取
+            chunkSize = rest.chunkSize || 1048576, //1048576, // 以每片2MB大小来逐次读取
             chunks = Math.ceil(file.size / chunkSize),
             currentChunk = 0,
             spark = new SparkMD5(), //创建SparkMD5的实例

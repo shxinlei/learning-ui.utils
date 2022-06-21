@@ -1,6 +1,6 @@
 import ArrayUtils from "./ArrayUtils"
 import ObjectUtils from "./ObjectUtils"
-
+import { cloneDeep } from "lodash-es"
 export const NumberEqual = (a: unknown, b: unknown) => {
     if (typeof a === "number" && typeof b === "number") {
         return a === b
@@ -107,32 +107,7 @@ export const uuid = (len: number = 32, radix: number = 16): string => {
  * @returns
  * @param target
  */
-export const formDeepClone = <T>(target: T[] | T): T | T[] | unknown => {
-    if (typeof target !== "object") return target;
-
-    let obj;
-    if (Array.isArray(target)) {
-        obj = [];
-    } else {
-        obj = {};
-    }
-    // @ts-ignore
-    for (let prop in target) {
-        // obj.hasOwnProperty 判断某个对象是否含有指定的属性
-        // 该方法会忽略掉从原型链上继承的属性
-        // @ts-ignore
-        if (target.hasOwnProperty(prop)) {
-            if (typeof target === "object") {
-                // @ts-ignore
-                obj[prop] = formDeepClone(target[prop]);
-            } else {
-                // @ts-ignore
-                obj[prop] = target[prop];
-            }
-        }
-    }
-    return obj;
-};
+export const formDeepClone = <T>(target: T[] | T): T | T[] | unknown => cloneDeep(target);
 
 
 /**
