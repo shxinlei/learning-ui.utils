@@ -23,10 +23,7 @@ const download = ({ url, method='GET', name, progress, onClose, options }: downl
     
     if(method === "POST" && options?.data) {
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            name: 'xibing',
-            age: 20
-        }))
+        xhr.send(JSON.stringify(options.data));
     }
 
     if(options){
