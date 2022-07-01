@@ -9,7 +9,7 @@ export interface downloadProps {
     onClose?: (xhr: XMLHttpRequest) => void,
     options?: {
         header?: Record<string , any>,
-        data?: Record<string, any>
+        data?: Record<string, any> | Record<string, any>[]
         [key: string]: any
     }
 }
