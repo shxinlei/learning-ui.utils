@@ -8,6 +8,8 @@ export interface downloadProps {
     progress?: (loaded: number, total: number, event?: any) => void,
     onClose?: (xhr: XMLHttpRequest) => void,
     options?: {
+        header?: Record<string , any>,
+        data?: Record<string, any>
         [key: string]: any
     }
 }
@@ -19,11 +21,21 @@ const download = ({ url, method='GET', name, progress, onClose, options }: downl
     xhr.open(method, url, true);
     xhr.responseType = options?.responseType || "blob";
     
+    if(method === "POST" && options?.data) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            name: 'xibing',
+            age: 20
+        }))
+    }
+
     if(options){
         for (const k in options) {
-            if (Object.prototype.hasOwnProperty.call(options, k)) {
-                const element = options[k];
-                xhr.setRequestHeader(k, element);
+            if(options.header){
+                if (Object.prototype.hasOwnProperty.call(options, k)) {
+                    const element = options[k];
+                    xhr.setRequestHeader(k, element);
+                }
             }
         }
     }
