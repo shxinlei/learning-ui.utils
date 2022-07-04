@@ -11,11 +11,12 @@ export interface downloadProps {
         header?: Record<string , any>,
         data?: Record<string, any> | Record<string, any>[]
         [key: string]: any
-    }
+    },
+    suffix?: string
 }
 
 
-const download = ({ url, method='GET', name, progress, onClose, options }: downloadProps) => {
+const download = ({ url, method='GET', name, progress, onClose,suffix, options }: downloadProps) => {
     window.URL = window.URL || window.webkitURL;
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
@@ -46,7 +47,7 @@ const download = ({ url, method='GET', name, progress, onClose, options }: downl
     onClose && onClose(xhr);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let filename = name + '.' + url.replace(/(.*\.)/, ''); // 自定义文件名+后缀
+            let filename = name + '.' + (  suffix ? suffix : url.replace(/(.*\.)/, '')); // 自定义文件名+后缀
 
             let a = document.createElement('a');
             let blob = new Blob([xhr.response]);
