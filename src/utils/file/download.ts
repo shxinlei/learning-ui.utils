@@ -24,7 +24,7 @@ const download = ({ url, method='GET', name, progress, onClose,suffix, options }
     
     if(method === "POST" && options?.data) {
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(options.data));
+        
     }
 
     if(options){
@@ -59,7 +59,12 @@ const download = ({ url, method='GET', name, progress, onClose,suffix, options }
 
         }
     };
-    xhr.send();
+    if(method === "POST" && options?.data) { 
+        xhr.send(JSON.stringify(options.data));
+    }else {
+        xhr.send();
+    }
+   
 }
 
 export default download;
