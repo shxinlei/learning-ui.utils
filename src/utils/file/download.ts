@@ -40,9 +40,9 @@ const download = ({ url, method='GET', name, progress, onClose,suffix, options  
     }
     
     xhr.onprogress = function (event) {
-        if (event.lengthComputable) {
+        // if (event.lengthComputable) {
             progress && progress(event.loaded, event.total, event);
-        }
+        // }
     };
     
     onClose && onClose(xhr);
