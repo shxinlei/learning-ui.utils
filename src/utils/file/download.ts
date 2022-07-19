@@ -12,11 +12,12 @@ export interface downloadProps {
         data?: Record<string, any> | Record<string, any>[]
         [key: string]: any
     },
-    suffix?: string
+    suffix?: string,
+    callback?: ({xhr, next} : { xhr: XMLHttpRequest , next: () => void}) => void;
 }
 
 
-const download = ({ url, method='GET', name, progress, onClose,suffix, options }: downloadProps) => {
+const download = ({ url, method='GET', name, progress, onClose,suffix, options  , callback }: downloadProps) => {
     window.URL = window.URL || window.webkitURL;
     let xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
@@ -45,18 +46,27 @@ const download = ({ url, method='GET', name, progress, onClose,suffix, options }
     };
     
     onClose && onClose(xhr);
+
+    const next =  () => {
+        let filename = name + '.' + (  suffix ? suffix : url.replace(/(.*\.)/, '')); // 自定义文件名+后缀
+        let a = document.createElement('a');
+        let blob = new Blob([xhr.response]);
+        let _url = window.URL.createObjectURL(blob);
+        a.href = _url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(_url);
+    }
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let filename = name + '.' + (  suffix ? suffix : url.replace(/(.*\.)/, '')); // 自定义文件名+后缀
-
-            let a = document.createElement('a');
-            let blob = new Blob([xhr.response]);
-            let _url = window.URL.createObjectURL(blob);
-            a.href = _url;
-            a.download = filename;
-            a.click();
-            window.URL.revokeObjectURL(_url);
-
+            if(callback) {
+                callback({
+                    xhr,
+                    next: next
+                })
+            }else {
+                next()
+            }
         }
     };
     if(method === "POST" && options?.data) { 
@@ -66,5 +76,7 @@ const download = ({ url, method='GET', name, progress, onClose,suffix, options }
     }
    
 }
+
+
 
 export default download;
