@@ -48,13 +48,10 @@ export const sparkMd5File = ({ file, onprogress , ...rest }: sparkProps) =>{
             //     of  chunks ");
             spark.appendBinary(e.content); // append array buffer
             currentChunk += 1;
-            // message.loading({ content: `正在分割文件...进度${Math.ceil((currentChunk/chunks) * 100)}%`, key: "1" });
-            // console.warn(currentChunk/chunks , 'currentChunk/chunks');
             if (currentChunk < chunks) {
                 onprogress && onprogress(currentChunk + 1 , chunks);
                 loadNext();
             } else {
-                // message.success({ content: "分割完成", key: "1", duration: 2 });
                 running = false;
                 res(spark.end()); // 完成计算，返回结果
             }

@@ -10,23 +10,23 @@ import FullScreen from "./utils/FullScreen"
 
 import XML from "./utils/XML";
 
-export {
-    isEqual,
-    uuid,
 
+export {
+    ObjectUtils,
+    isEqual,
+    ArrayUtils,
+    uuid,
     uploadFileMd5,
+    scrollHandel,
+    eventManager,
+
     sparkMd5File,
     download,
 
-    scrollHandel,
     formDeepClone,
     formatTime,
-
-    ObjectUtils,
-    ArrayUtils,
-    eventManager,
-
     XML,
     FullScreen,
+
 }
 
